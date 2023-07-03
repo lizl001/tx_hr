@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <record id="withhold_person_tree" model="ir.ui.view">
+            <field name="name">tx.hr.withhold.person.tree</field>
+            <field name="model">tx.hr.withhold.person</field>
+            <field name="arch" type="xml">
+                <tree create="0" delete="0" export_xlsx="0">
+                    <header>
+                        <button type="object" string="保存" name="save_data"/>
+                    </header>
+                    <field name="name" options="{'no_open': True}"/>
+                    <field name="department_id" options="{'no_open': True}"/>
+                    <field name="job_id" options="{'no_open': True}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="withhold_person" model="ir.actions.act_window">
+            <field name="name">员工明细</field>
+            <field name="res_model">tx.hr.withhold.person</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

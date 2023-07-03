@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <record id="tx_hr_classes_tree" model="ir.ui.view">
+            <field name="name">tx.hr.classes.tree</field>
+            <field name="model">tx.hr.classes</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name"/>
+                    <field name="start_time1" widget="float_time"/>
+                    <field name="end_time1" widget="float_time"/>
+                    <field name="start_time2" widget="float_time"/>
+                    <field name="end_time2" widget="float_time"/>
+                    <field name="start_time3" widget="float_time"/>
+                    <field name="end_time3" widget="float_time"/>
+                    <field name="start_time4" widget="float_time"/>
+                    <field name="end_time4" widget="float_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tx_hr_classes_action" model="ir.actions.act_window">
+            <field name="name">班次表</field>
+            <field name="res_model">tx.hr.classes</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

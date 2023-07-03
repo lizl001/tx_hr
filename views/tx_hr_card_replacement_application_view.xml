@@ -1,0 +1,70 @@
+<odoo>
+    <data>
+        <record id="card_replacement_application_form" model="ir.ui.view">
+            <field name="name">tx_hr_card_replacement_application_form</field>
+            <field name="model">tx.hr.card.replacement.application</field>
+            <field name="arch" type="xml">
+                <form string="补卡申请">
+                    <header>
+                        <button invisible="1"/>
+                        <field name="state" invisible="1"/>
+                        <field name="card_rate_state" widget="statusbar"
+                               statusbar_visible="draft,pending,approved,rejected"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="proposer_employee_id" options="{'no_open': True}"/>
+                                <field name="proposer_department_id"/>
+                                <field name="proposer_job_id"/>
+                            </group>
+                            <group>
+                                <field name="reason"/>
+                                <field name="attachment_ids" widget="many2many_binary"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="补卡人员">
+                                <header>
+                                    <button name="button_creat_application_detail" type="object" string="批量添加员工"/>
+                                </header>
+                                <field name="card_detail_ids">
+                                    <tree editable="top">
+                                        <field name="employee_id" options="{'no_open': True}"/>
+                                        <field name="department_id"/>
+                                        <field name="job_id"/>
+                                        <field name="begin_time"
+                                               widget="daterange"
+                                               options="{'related_end_date': 'end_time', 'picker_options': {'timePickerIncrement': 1}}"/>
+                                        <field name="end_time"
+                                               widget="daterange"
+                                               options="{'related_start_date': 'begin_time', 'picker_options': {'timePickerIncrement': 1}}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="card_replacement_application_tree" model="ir.ui.view">
+            <field name="name">tx_hr_card_replacement_application_tree</field>
+            <field name="model">tx.hr.card.replacement.application</field>
+            <field name="arch" type="xml">
+                <tree string="补卡申请">
+                    <field name="proposer_employee_id"/>
+                    <field name="proposer_department_id"/>
+                    <field name="proposer_job_id"/>
+                    <field name="reason"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_tx_hr_card_replacement_application" model="ir.actions.act_window">
+            <field name="name">补卡申请</field>
+            <field name="res_model">tx.hr.card.replacement.application</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

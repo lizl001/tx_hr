@@ -1,0 +1,47 @@
+<odoo>
+    <record id="tx_hr_attendance_monthly_tree_view" model="ir.ui.view">
+        <field name="name">考勤统计Tree</field>
+        <field name="model">tx.hr.attendance.monthly</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="pin"/>
+                <field name="employee"/>
+                <field name="department_id"/>
+                <field name="employee_job_id"/>
+                <field name="year"/>
+                <field name="month"/>
+                <field name="attendance_time"/>
+                <field name="normal_overtime_hours"/>
+                <field name="holiday_overtime_hours"/>
+                <field name="late_leave_early"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tx_hr_attendance_monthly_search_view" model="ir.ui.view">
+        <field name="name">考勤Search</field>
+        <field name="model">tx.hr.attendance.monthly</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="pin"/>
+                <field name="year"/>
+                <field name="month"/>
+                <field name="department_id"/>
+                <filter string="本月" name="today"
+                        domain="[('month', '=', datetime.datetime.now().month), ('year', '=', datetime.datetime.now().year)]"/>
+
+                <searchpanel>
+                    <field name="employee"/>
+                    <field name="department_id"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="tx_hr_attendance_monthly_act_window" model="ir.actions.act_window">
+        <field name="name">考勤月报</field>
+        <field name="res_model">tx.hr.attendance.monthly</field>
+        <field name="context">{"search_default_today":1}</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+</odoo>

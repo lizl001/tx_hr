@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_piece_rate_search" model="ir.ui.view">
+        <field name="name">tx_hr_piece_rate.search</field>
+        <field name="model">tx.hr.piece.rate</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="pin"/>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="name"/>
+                <field name="type_deduction" options="{'no_open': True}"/>
+                <searchpanel>
+                    <field name="year"/>
+                    <field name="month"/>
+<!--                    <field name="piece_rate_state"/>-->
+                </searchpanel>
+            </search>
+
+        </field>
+    </record>
+    <record id="view_piece_rate_form" model="ir.ui.view">
+        <field name="name">tx_hr_piece_rate.form</field>
+        <field name="model">tx.hr.piece.rate</field>
+        <field name="arch" type="xml">
+            <form string="计件工资申请">
+                <header>
+                    <button invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="piece_rate_state" widget="statusbar"
+                           statusbar_visible="draft,pending,approved,rejected"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="type_deduction" options="{'no_open': True}"/>
+                            <field name="name" options="{'no_open': True}"/>
+                        </group>
+                        <group>
+                        </group>
+                        <group>
+                            <field name="year"/>
+                            <field name="department_id" options="{'no_open': True}"/>
+                            <field name="job_id" options="{'no_open': True}"/>
+                            <!--                        <field name="amount_subsidy"/>-->
+                        </group>
+                        <group>
+                            <field name="month"/>
+                            <field name="deduction_statement"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="计件明细">
+                            <header>
+                                <button name="button_creat_coefficient_detail" type="object" string="批量添加员工"/>
+                            </header>
+                            <field name="piece_rate_detail">
+                                <tree editable="top">
+                                    <field name="employee_id"/>
+                                    <field name="department_id" options="{'no_open': True}"/>
+                                    <field name="job_id" options="{'no_open': True}"/>
+                                    <field name="amount_subsidy"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_piece_rate_tree" model="ir.ui.view">
+        <field name="name">tx_hr_piece_rate.tree</field>
+        <field name="model">tx.hr.piece.rate</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="pin"/>
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <field name="type_deduction"/>
+                <field name="attachment_ids"/>
+                <field name="deduction_statement"/>
+                <field name="piece_rate_state" widget="label_selection"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="piece_rate_view" model="ir.actions.act_window">
+        <field name="name">计件工资申请</field>
+        <field name="res_model">tx.hr.piece.rate</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+</odoo>

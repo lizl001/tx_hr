@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+
+        <record id="view_individual_income_tax_tree" model="ir.ui.view">
+            <field name="name">tx.hr.individual_income_tax.tree</field>
+            <field name="model">tx.hr.individual_income_tax</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name"  options="{'no_open': True}"/>
+                    <field name="department_id"/>
+                    <field name="job_id"/>
+                    <field name="children_education"/>
+                    <field name="adult_education"/>
+                    <field name="treatment_serious_disease"/>
+                    <field name="housing_loan_interest"/>
+                    <field name="housing_rent"/>
+                    <field name="support_old"/>
+                    <field name="individual_income_sum"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_individual_income_tax" model="ir.actions.act_window">
+            <field name="name">个税金额</field>
+            <field name="res_model">tx.hr.individual_income_tax</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <record id="view_scheduling_search" model="ir.ui.view">
+            <field name="name">tx.hr.scheduling.search</field>
+            <field name="model">tx.hr.scheduling</field>
+            <field name="arch" type="xml">
+                <search>
+                    <searchpanel>
+                        <field name="month"/>
+                        <field name="department_id"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+        <record id="view_scheduling_tree" model="ir.ui.view">
+            <field name="name">tx.hr.scheduling.tree</field>
+            <field name="model">tx.hr.scheduling</field>
+            <field name="arch" type="xml">
+                <tree editable="top" multi_edit="1">
+                    <header>
+                        <button name="update_employee" string="更新员工" type="object" class="oe_highlight"/>
+                    </header>
+                    <field name="department_id"/>
+                    <field name="job_id"/>
+                    <field name="name" options="{'no_open': True}"/>
+                    <field name="classes" options="{'no_open': True}"/>
+                    <field name="year"/>
+                    <field name="month"/>
+                    <field name="days_of_attendance_due"/>
+                    <field name="remark"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_scheduling" model="ir.actions.act_window">
+            <field name="name">排班情况</field>
+            <field name="res_model">tx.hr.scheduling</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,111 @@
+<odoo>
+    <data>
+        <!-- 加班申请单Tree -->
+        <record id="view_overtime_request_tree" model="ir.ui.view">
+            <field name="name">Overtime Tree</field>
+            <field name="model">tx.hr.overtime</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="department_id"/>
+                    <field name="employee_id"/>
+                    <field name="overtime_type"/>
+                    <field name="attachment_ids"/>
+                    <field name="overtime_state" widget="label_selection"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- 加班申请单Form -->
+        <record id="view_overtime_request_form" model="ir.ui.view">
+            <field name="name">Overtime Form</field>
+            <field name="model">tx.hr.overtime</field>
+            <field name="arch" type="xml">
+                <form string="加班申请单">
+                    <header>
+                        <button invisible="1"/>
+                        <field name="state" invisible="1"/>
+                        <field name="overtime_state" widget="statusbar"
+                               statusbar_visible="draft,pending,approved,rejected"/>
+                    </header>
+                    <sheet>
+                        <header>
+<!--                            <field name="is_accessible"/>-->
+<!--                            <button name="action_confirm" icon="fa-thumbs-up" class="oe_highlight"-->
+<!--                                    states="draft" string="提交审核" type="object"/>-->
+<!--                            <button name="action_confirm" icon="fa-thumbs-up" class="oe_highlight"-->
+<!--                                    string="确认" type="object"-->
+<!--                                    attrs="{'invisible': [('is_accessible', '=', False)]}"/>-->
+<!--                            <button name="action_reject" icon="fa-undo" string="拒绝"-->
+<!--                                    type="object" attrs="{'invisible': [('is_accessible', '=', False)]}"/>-->
+                        </header>
+                        <!--申请人信息-->
+                        <group>
+                            <group>
+                                <field name="overtime_type"   />
+                                <field name="department_id" readonly="1"/>
+                                <field name="start_time" widget="daterange"
+                                         
+                                       options="{'related_end_date': 'end_time', 'picker_options': {'timePickerIncrement': 30}}"/>
+                            </group>
+                            <group>
+                                <field name="employee_id"   />
+                                <field name="employee_job_id" readonly="1"/>
+                                <field name="end_time" widget="daterange"
+                                         
+                                       options="{'related_start_date': 'start_time', 'picker_options': {'timePickerIncrement': 30}}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="reason"   />
+                            <field name="attachment_ids" widget="many2many_binary"
+                                     />
+                        </group>
+
+                        <!--加班人员信息-->
+                        <notebook>
+                            <page string="加班人员">
+                                <field name="overtime_person_ids"   >
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="department_id"/>
+                                        <field name="job_id"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- 加班申请单Search -->
+        <record id="view_overtime_request_search" model="ir.ui.view">
+            <field name="name">Overtime Search</field>
+            <field name="model">tx.hr.overtime</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="code"/>
+                    <searchpanel>
+                        <field name="overtime_type"/>
+<!--                        <field name="state" enable_counters="1"/>-->
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="employee_overtime_application" model="ir.actions.act_window">
+            <field name="name">加班单</field>
+            <field name="res_model">tx.hr.overtime</field>
+            <field name="view_mode">tree,form</field>
+            <!--            <field name="form_view_id" ref="view_overtime_request_form"/>-->
+            <!--            <field name="domain">[]</field>-->
+            <!--            <field name="context">{'chat_icon': True}</field>-->
+            <!--            <field name="view_id" eval="False"/>-->
+            <!--            <field name="search_view_id" ref="view_employee_filter"/>-->
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,68 @@
+<odoo>
+    <record id="tx_hr_attendance_daily_tree_view" model="ir.ui.view">
+        <field name="name">考勤统计Tree</field>
+        <field name="model">tx.hr.attendance.daily</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="pin"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="employee_job_id"/>
+                <field name="attendance_time"/>
+                <field name="normal_overtime_hours"/>
+                <field name="holiday_overtime_hours"/>
+                <field name="date"/>
+                <field name="punch_in_morning"/>
+                <field name="clock_out_morning"/>
+                <field name="punch_in_afternoon"/>
+                <field name="clock_out_afternoon"/>
+                <field name="punch_in_evening"/>
+                <field name="clock_out_evening"/>
+                <field name="late_leave_early"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--    <record id="tx_hr_attendance_daily_form_view" model="ir.ui.view">-->
+    <!--        <field name="name">考勤Form</field>-->
+    <!--        <field name="model">tx.hr.attendance.daily</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <form string="My Model">-->
+    <!--                <header><button string="aa" name="clock_in" type="object" context="{'clock_in_time': clock_in_time, 'pin': 6}"/></header>-->
+    <!--                <field name='pin'/>-->
+    <!--                <field name='clock_in_time'/>-->
+    <!--            </form>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <record id="tx_hr_attendance_daily_search_view" model="ir.ui.view">
+        <field name="name">考勤Search</field>
+        <field name="model">tx.hr.attendance.daily</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="pin"/>
+                <field name="year"/>
+                <field name="month"/>
+                <field name="department_id"/>
+                <filter string="今日记录" name="today"
+                        domain="[('date', '=', datetime.datetime.now().strftime('%Y-%m-%d'))]"/>
+                <filter string="本月记录" name="month"
+                        domain="[('month', '=', datetime.datetime.now().month), ('year', '=', datetime.datetime.now().year)]"/>
+                <filter string="异常打卡记录" name="exception"
+                        domain="[('late_leave_early', '>', 0)]"/>
+                <searchpanel>
+                    <field name="employee_id"/>
+                    <field name="department_id"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="tx_hr_attendance_daily_act_window" model="ir.actions.act_window">
+        <field name="name">考勤日报</field>
+        <field name="res_model">tx.hr.attendance.daily</field>
+        <field name="context">{"search_default_today":1}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

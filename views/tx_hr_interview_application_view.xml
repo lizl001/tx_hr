@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_interview_application_tree" model="ir.ui.view">
+            <field name="name">tx.hr.interview.application.tree</field>
+            <field name="model">tx.hr.interview.application</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="department"/>
+                    <field name="position"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_interview_application_form" model="ir.ui.view">
+            <field name="name">tx.hr.interview.application.form</field>
+            <field name="model">tx.hr.interview.application</field>
+            <field name="arch" type="xml">
+                <form string="Interview Application">
+                    <sheet>
+<!--                        <div class="oe_title " >-->
+<!--                            <h1>员工面试应聘</h1>-->
+<!--                        </div>-->
+                        <div class="oe_form_container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <group>
+                                        <field name="department"/>
+                                    </group>
+                                </div>
+                                <div class="col-md-4">
+                                    <group>
+                                        <field name="position"/>
+                                    </group>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="nation"/>
+                                        <field name="education"/>
+                                        <field name="employment_status"/>
+                                    </group>
+                                </div>
+                                <div class="col-md-4">
+                                    <group>
+                                        <field name="gender"/>
+                                        <field name="birth"/>
+                                        <field name="political_outlook"/>
+                                        <field name="language_skills"/>
+                                    </group>
+                                </div>
+                                <div class="col-md-4">
+                                    <group>
+                                        <field name="native_place"/>
+                                        <field name="marital_status"/>
+                                        <field name="computer_skills"/>
+                                        <field name="recruitment_channel"/>
+                                    </group>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <group>
+                                        <field name="id_number"/>
+                                        <field name="household_register"/>
+                                        <field name="current_address"/>
+                                        <field name="availability"/>
+                                        <field name="maternity_status"
+                                               attrs="{'invisible': [('gender', '!=', 'female')]}"/>
+                                        <field name="driving_license"/>
+                                        <field name="driving_license_style"
+                                               attrs="{'invisible': [('driving_license', '!=', True)]}"/>
+                                    </group>
+                                </div>
+                                <div class="col-md-6">
+                                    <group>
+                                        <field name="emergency_contact"/>
+                                        <field name="contact_number"/>
+                                        <field name="expected_salary" widget="monetary"/>
+                                        <field name="health_condition"/>
+                                        <field name="disease"
+                                               attrs="{'invisible': [('health_condition', '!=', 'unhealthy')]}"/>
+                                    </group>
+                                </div>
+                            </div>
+                            <notebook>
+                                <page string="教育状况">
+                                    <field name="education_id">
+                                        <tree editable="top">
+                                            <field name="start_date" widget="daterange" width="170px"
+                                                   options="{'related_end_date': 'end_date'}" string="开始日期"/>
+                                            <field name="end_date" widget="daterange" width="170px"
+                                                   options="{'related_start_date': 'start_date'}" string="开始日期"/>
+                                            <field name="school" string="学校名称"/>
+                                            <field name="major" string="专业"/>
+                                            <field name="degree" string="学历"/>
+                                            <field name="study_mode" string="就学方式"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="工作简历">
+                                    <field name="work_experience">
+                                        <tree editable="top">
+                                            <field name="start_date" widget="daterange" width="170px"
+                                                   options="{'related_end_date': 'end_date'}" string="开始日期"/>
+                                            <field name="end_date" widget="daterange" width="170px"
+                                                   options="{'related_start_date': 'start_date'}" string="开始日期"/>
+                                            <field name="company_name" string="公司名称"/>
+                                            <field name="position" string="地点"/>
+                                            <field name="salary" string="工资"/>
+                                            <field name="reason_for_leaving" string="离职原因"/>
+                                            <field name="reference_person" string="证明人及电话"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="主要社会关系（家庭成员）">
+                                    <field name="family_member"/>
+                                </page>
+                            </notebook>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_interview_application_search" model="ir.ui.view">
+            <field name="name">tx.hr.interview.application.search</field>
+            <field name="model">tx.hr.interview.application</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Name"/>
+                    <field name="date" string="date"/>
+                    <field name="department" string="Department"/>
+                    <searchpanel>
+                        <field name="department"/>
+                        <field name="position"/>
+                        <field name="education"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+
+        <!--其他关联表-->
+        <record id="view_education_tree" model="ir.ui.view">
+            <field name="name">education tree</field>
+            <field name="model">tx.hr.education</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="start_date" string="开始日期"/>
+                    <field name="end_date" string="结束日期"/>
+                    <field name="school" string="学校名称"/>
+                    <field name="major" string="专业"/>
+                    <field name="degree" string="学历"/>
+                    <field name="study_mode" string="就学方式"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_work_experience_tree" model="ir.ui.view">
+            <field name="name">work experience tree</field>
+            <field name="model">tx.hr.work.experience</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="start_date" string="开始日期"/>
+                    <field name="end_date" string="结束日期"/>
+                    <field name="company_name" string="公司名称"/>
+                    <field name="position" string="地点"/>
+                    <field name="salary" string="工资"/>
+                    <field name="reason_for_leaving" string="离职原因"/>
+                    <field name="reference_person" string="证明人及电话"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_family_member_tree" model="ir.ui.view">
+            <field name="name">family tree</field>
+            <field name="model">tx.hr.family.member</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name" string="姓名"/>
+                    <field name="relationship" string="关系"/>
+                    <field name="employer" string="职业"/>
+                    <field name="contact_number" string="联系电话"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_interview_application" model="ir.actions.act_window">
+            <field name="name">员工面试应聘</field>
+            <field name="res_model">tx.hr.interview.application</field>
+            <field name="view_mode">tree,form,search</field>
+        </record>
+    </data>
+</odoo>
+
+

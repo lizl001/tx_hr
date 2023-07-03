@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="ref_view_employee_form" model="ir.ui.view">
+        <!--        下面<为视图命名,自定义且要唯一的>-->
+        <field name="name">ref_view_employee_form</field>
+        <!--下面继承视图关联的模型名称-->
+        <field name="model">hr.employee</field>
+        <!--下面名称='inherit_id' ref='相对应视图的（外部视图继承id）'-->
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <!--下面odoo固定的引用的文件类型-->
+        <field name="arch" type="xml">
+            <xpath expr="//form//sheet//group//group//field[@name='work_phone']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//form//sheet//group//group//field[@name='work_email']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//form//sheet//group//group//field[@name='coach_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!--            <xpath expr="//form//sheet//group//group//field[@name='mobile_phone']" position="after">-->
+            <!--                <field name="coach_id" string="组长"/>-->
+            <!--            </xpath>-->
+            <xpath expr="//form//sheet//group//group//field[@name='parent_id']" position="attributes">
+                <attribute name="string">直属上司</attribute>
+            </xpath>
+            <xpath expr="//page//group//group//field[@name='phone']" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </xpath>
+            <xpath expr="//page//group//group//field[@name='private_email']" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']/group" position="inside">
+                <group string="银行卡">
+                    <field name="bank_card_number"/>
+                    <field name="opening_bank"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_employee_tree_inherit" model="ir.ui.view">
+        <field name="name">employee.tree.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree//field[@name='name']" position="before">
+                <field name="image_512" string="头像" widget="image" options="{'size': (32, 32)}"/>
+            </xpath>
+            <xpath expr="//tree//field[@name='work_email']" position="after">
+                <field name="employee_status" widget="badge"
+                       decoration-danger="employee_status == '3'"
+                       decoration-warning="employee_status  == '2' or employee_status  == '5'"
+                       decoration-success="employee_status == '1'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ref_view_employee" model="ir.ui.view">
+        <!--        下面<为视图命名,自定义且要唯一的>-->
+        <field name="name">ref_view_employee_tree</field>
+        <!--下面继承视图关联的模型名称-->
+        <field name="model">hr.employee</field>
+        <!--下面名称='inherit_id' ref='相对应视图的（外部视图继承id）'-->
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <!--下面odoo固定的引用的文件类型-->
+        <field name="arch" type="xml">
+            <xpath expr="//tree//field[@name='activity_ids']" position="attributes">
+                <attribute name="optional">show</attribute>
+            </xpath>
+            <xpath expr="//tree//field[@name='activity_date_deadline']" position="attributes">
+                <attribute name="optional">show</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
